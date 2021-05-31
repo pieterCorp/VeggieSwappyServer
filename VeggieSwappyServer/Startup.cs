@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using VeggieSwappyServer.Business;
+using VeggieSwappyServer.Business.Services;
 using VeggieSwappyServer.Data;
 using VeggieSwappyServer.Data.Entities;
 using VeggieSwappyServer.Data.Repositories;
@@ -55,6 +56,12 @@ namespace VeggieSwappyServer
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
             services.AddScoped<IGenericRepo<Trade>, GenericRepo<Trade>>();
+            services.AddScoped<IGenericRepo<User>, GenericRepo<User>>();
+
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<ITradeRepo, TradeRepo>();
+            services.AddScoped<ITradeService, TradeService>();
+            
 
         }
 
