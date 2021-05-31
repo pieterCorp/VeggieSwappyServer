@@ -26,12 +26,25 @@ namespace VeggieSwappyServer.Business.Services
             {
                 var test = _mapper.Map<TradeDto>(trade);
                 return test;
-            }                
+            }
 
             return await CreateTradeDto(trader1, trader2);
         }
+        public async Task<bool> SaveTradeDto(TradeDto tradeDto)
+        {
+            if (tradeDto.Id == 0)
+            {
+                Trade trade = await CreateNewTrade(tradeDto);
+                await _genericRepo.AddEntityAsync(trade);
+            }
+            else
+            {
+                await UpdateExistingTrade(tradeDto);
+            }
+            return true;
+        }
 
-        public async Task<TradeDto> CreateTradeDto(int trader1, int trader2)
+        private async Task<TradeDto> CreateTradeDto(int trader1, int trader2)
         {
             User user1 = await _userRepo.GetUserByIdAsync(trader1);
             User user2 = await _userRepo.GetUserByIdAsync(trader2);
@@ -51,20 +64,6 @@ namespace VeggieSwappyServer.Business.Services
             return tradeDTO;
         }
 
-        public async Task<bool> SaveTradeDto(TradeDto tradeDto)
-        {
-            if (tradeDto.Id == 0)
-            {
-                Trade trade = await CreateNewTrade(tradeDto);
-                await _genericRepo.AddEntityAsync(trade);
-            }
-            else
-            {
-                await UpdateExistingTrade(tradeDto);
-            }
-            return true;
-        }
-
         private async Task UpdateExistingTrade(TradeDto tradeDto)
         {
             Trade trade = await _tradeRepo.GetTradeByIdAsync(tradeDto.Id);
@@ -74,9 +73,6 @@ namespace VeggieSwappyServer.Business.Services
                 trade.RejectedTradeProposals = new List<RejectedTradeProposal>();
 
             trade.RejectedTradeProposals.Add(rejectedProposal);
-
-
-
             trade.CurrentTradeProposal = MakeNewTradeProposal(tradeDto);
 
             await _genericRepo.UpdateEntityAsync(trade);

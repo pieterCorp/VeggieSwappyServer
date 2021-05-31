@@ -115,7 +115,25 @@ namespace VeggieSwappyServer.Data
                     new UserTradeItem { Id = 9, Amount = 50, UserId = 4, ResourceId = 7 },
                     new UserTradeItem { Id = 10, Amount = 50, UserId = 4, ResourceId = 20 },
                     new UserTradeItem { Id = 11, Amount = 50, UserId = 4, ResourceId = 21 },
-                    new UserTradeItem { Id = 12, Amount = 50, UserId = 4, ResourceId = 22 }
+                    new UserTradeItem { Id = 12, Amount = 50, UserId = 4, ResourceId = 22 },
+                    new UserTradeItem { Id = 13, Amount = 50, UserId = 5, ResourceId = 1 },
+                    new UserTradeItem { Id = 14, Amount = 50, UserId = 5, ResourceId = 2 },
+                    new UserTradeItem { Id = 15, Amount = 50, UserId = 6, ResourceId = 3 },
+                    new UserTradeItem { Id = 16, Amount = 50, UserId = 6, ResourceId = 10 },
+                    new UserTradeItem { Id = 17, Amount = 50, UserId = 6, ResourceId = 11 },
+                    new UserTradeItem { Id = 18, Amount = 50, UserId = 6, ResourceId = 12 },
+                    new UserTradeItem { Id = 19, Amount = 50, UserId = 7, ResourceId = 1 },
+                    new UserTradeItem { Id = 20, Amount = 50, UserId = 7, ResourceId = 5 },
+                    new UserTradeItem { Id = 21, Amount = 50, UserId = 7, ResourceId = 7 },
+                    new UserTradeItem { Id = 22, Amount = 50, UserId = 8, ResourceId = 20 },
+                    new UserTradeItem { Id = 23, Amount = 50, UserId = 8, ResourceId = 21 },
+                    new UserTradeItem { Id = 24, Amount = 50, UserId = 9, ResourceId = 11 },
+                    new UserTradeItem { Id = 25, Amount = 50, UserId = 9, ResourceId = 12 },
+                    new UserTradeItem { Id = 26, Amount = 50, UserId = 9, ResourceId = 10 },
+                    new UserTradeItem { Id = 27, Amount = 50, UserId = 10, ResourceId = 35 },
+                    new UserTradeItem { Id = 28, Amount = 50, UserId = 10, ResourceId = 37 },
+                    new UserTradeItem { Id = 29, Amount = 50, UserId = 10, ResourceId = 30 },
+                    new UserTradeItem { Id = 30, Amount = 50, UserId = 10, ResourceId = 31 }
                     );
             });
         }
