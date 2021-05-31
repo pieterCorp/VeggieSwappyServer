@@ -4,7 +4,7 @@ using VeggieSwappyServer.Data.Entities;
 
 namespace VeggieSwappyServer.Data.Repositories
 {
-    public interface IGenericRepo<T> where T : EntityBase
+    public interface IGenericRepo<T> 
     {
         Task<bool> AddEntitiesAsync(IEnumerable<T> entities);
         Task<bool> AddEntityAsync(T entity);

@@ -10,7 +10,7 @@ namespace VeggieSwappyServer.Data.Entities
        
         [ForeignKey("User")]
         public int User2Id { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual List<User> Users { get; set; }
 
         public virtual ICollection<RejectedTradeProposal> RejectedTradeProposals { get; set; }       
 
