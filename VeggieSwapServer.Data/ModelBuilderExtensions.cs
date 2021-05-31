@@ -10,7 +10,8 @@ namespace VeggieSwappyServer.Data
         public static void Seed(this ModelBuilder modelBuilder)
         {
             SeedUsers(modelBuilder);            
-            SeedResources(modelBuilder);            
+            SeedResources(modelBuilder);
+            SeedUserTradeItems(modelBuilder);
         }
 
         private static void SeedUsers(ModelBuilder modelBuilder)
@@ -95,6 +96,28 @@ namespace VeggieSwappyServer.Data
                   );
             }
             );
+        }
+
+        private static void SeedUserTradeItems(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserTradeItem>(x =>
+            {
+                using var hmac = new HMACSHA512();
+                x.HasData(
+                    new UserTradeItem { Id = 1, Amount = 50, UserId = 1, ResourceId = 1 },
+                    new UserTradeItem { Id = 2, Amount = 50, UserId = 1, ResourceId = 2 },
+                    new UserTradeItem { Id = 3, Amount = 50, UserId = 1, ResourceId = 3 },
+                    new UserTradeItem { Id = 4, Amount = 50, UserId = 2, ResourceId = 10 },
+                    new UserTradeItem { Id = 5, Amount = 50, UserId = 2, ResourceId = 11 },
+                    new UserTradeItem { Id = 6, Amount = 50, UserId = 2, ResourceId = 12 },
+                    new UserTradeItem { Id = 7, Amount = 50, UserId = 3, ResourceId = 1 },
+                    new UserTradeItem { Id = 8, Amount = 50, UserId = 3, ResourceId = 5 },
+                    new UserTradeItem { Id = 9, Amount = 50, UserId = 4, ResourceId = 7 },
+                    new UserTradeItem { Id = 10, Amount = 50, UserId = 4, ResourceId = 20 },
+                    new UserTradeItem { Id = 11, Amount = 50, UserId = 4, ResourceId = 21 },
+                    new UserTradeItem { Id = 12, Amount = 50, UserId = 4, ResourceId = 22 }
+                    );
+            });
         }
 
     }
