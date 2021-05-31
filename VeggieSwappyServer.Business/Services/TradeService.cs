@@ -22,7 +22,11 @@ namespace VeggieSwappyServer.Business.Services
         {
             Trade trade = await _tradeRepo.GetTradeAsync(trader1, trader2);
 
-            if (trade != null && trade.Users.Count == 2) return _mapper.Map<TradeDto>(trade);
+            if (trade != null && trade.Users.Count == 2)
+            {
+                var test = _mapper.Map<TradeDto>(trade);
+                return test;
+            }                
 
             return await CreateTradeDto(trader1, trader2);
         }

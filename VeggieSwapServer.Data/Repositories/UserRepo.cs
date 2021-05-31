@@ -26,9 +26,7 @@ namespace VeggieSwappyServer.Data.Repositories
         public async Task<IEnumerable<User>> GetUsersWithDataAsync()
         {
             return await _context.Set<User>()
-
                        .Include(x => x.Trades)
-
                        .Include(x => x.UserTradeItems)
                        .ThenInclude(x => x.Resource)
                        .ToListAsync();
@@ -37,9 +35,9 @@ namespace VeggieSwappyServer.Data.Repositories
         public async Task<User> GetUserByIdAsync(int id)
         {
             return await _context.Users
-
+                .Include(x => x.UserTradeItems)
+                .ThenInclude(x => x.Resource)
                 .Include(x => x.Trades)
-
                 .Include(x => x.UserTradeItems)
                 .ThenInclude(x => x.Resource)
                 .FirstOrDefaultAsync(x => x.Id == id);
