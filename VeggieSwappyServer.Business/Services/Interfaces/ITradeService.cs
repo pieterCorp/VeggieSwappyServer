@@ -8,5 +8,6 @@ namespace VeggieSwappyServer.Business.Services
         Task<TradeDto> GetTradeDto(int trader1, int trader2);
         Task<bool> SaveTradeDto(TradeDto tradeDto);
         Task<TradeHistoryDto> GetTradeHistory(int id);
+        Task<bool> CancelTrade(int tradeId);
     }
 }

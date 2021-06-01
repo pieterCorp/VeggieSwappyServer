@@ -44,7 +44,13 @@ namespace VeggieSwappyServer.Controllers
         {            
             var test = await _tradeService.GetTradeHistory(id);
             return Ok(test);
+        }
 
+        [HttpGet("cancel/{id}")]
+        public async Task<ActionResult<bool>> ControllerCancelTradeAsync(int id)
+        {
+            bool succes = await _tradeService.CancelTrade(id);
+            return Ok(succes);
         }
     }
 }
