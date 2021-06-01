@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using VeggieSwappyServer.Business.Dto;
 using VeggieSwappyServer.Data.Entities;
@@ -19,15 +20,17 @@ namespace VeggieSwappyServer.Business.Services
             _tradeRepo = tradeRepo;
             _userRepo = userRepo;
         }
+
         public async Task<TradeDto> GetTradeDto(int trader1, int trader2)
         {
             Trade trade = await _tradeRepo.GetTradeAsync(trader1, trader2);
 
-            if (trade != null && trade.Users.Count == 2) 
+            if (trade != null && trade.Users.Count == 2)
                 return _mapper.Map<TradeDto>(trade);
-           
+
             return await CreateTradeDto(trader1, trader2);
         }
+
         public async Task<bool> SaveTradeDto(TradeDto tradeDto)
         {
             if (tradeDto.Id == 0)
@@ -41,6 +44,7 @@ namespace VeggieSwappyServer.Business.Services
             }
             return true;
         }
+
         public async Task<TradeHistoryDto> GetTradeHistory(int id)
         {
             Trade trade = await _tradeRepo.GetTradeWithHistoryByIdAsync(id);
@@ -53,6 +57,20 @@ namespace VeggieSwappyServer.Business.Services
             trade.TradeStatus = TradeStatus.CANCELED;
             await _genericRepo.UpdateEntityAsync(trade);
             return true;
+        }
+
+        public async Task<bool> AcceptTrade(int tradeId)
+        {
+            Trade trade = await _tradeRepo.GetTradeByIdAsync(tradeId);
+            bool succes = UpdateUserTradeItems(trade);
+            if (succes)
+            {
+                trade.TradeStatus = TradeStatus.COMPLETED;
+                await _genericRepo.UpdateEntityAsync(trade);
+                return true;
+            }
+
+            return false;
         }
 
         private async Task<TradeDto> CreateTradeDto(int trader1, int trader2)
@@ -149,6 +167,59 @@ namespace VeggieSwappyServer.Business.Services
             trade.CurrentTradeProposal = MakeNewTradeProposal(tradeDto);
 
             return trade;
+        }
+
+        private bool UpdateUserTradeItems(Trade trade)
+        {
+            foreach (var item in trade.CurrentTradeProposal.ProposedTradeItems)
+            {
+                if (item.UserId == trade.Users[0].Id)
+                {
+                    UserTradeItem userTradeItem = trade.Users[0].UserTradeItems.FirstOrDefault(x => x.ResourceId == item.ResourceId);
+                    if (userTradeItem != null)
+                    {
+                        if (userTradeItem.Amount > item.Amount)
+                        {
+                            userTradeItem.Amount -= item.Amount;
+                        }
+                        else if (userTradeItem.Amount == item.Amount)
+                        {
+                            trade.Users[0].UserTradeItems.Remove(userTradeItem);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+                else if (item.UserId == trade.Users[1].Id)
+                {
+                    UserTradeItem userTradeItem = trade.Users[1].UserTradeItems.FirstOrDefault(x => x.ResourceId == item.ResourceId);
+                    if (userTradeItem != null)
+                    {
+                        if (userTradeItem.Amount > item.Amount)
+                        {
+                            userTradeItem.Amount -= item.Amount;
+                        }
+                        else if (userTradeItem.Amount == item.Amount)
+                        {
+                            trade.Users[1].UserTradeItems.Remove(userTradeItem);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

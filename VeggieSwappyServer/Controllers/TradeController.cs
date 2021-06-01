@@ -18,10 +18,10 @@ namespace VeggieSwappyServer.Controllers
         }
 
 
-        [HttpGet("{id1}/{id2}")]
-        public async Task<ActionResult<TradeDto>> GetTradeAsync(int id1, int id2)
+        [HttpGet("{userId1}/{userId2}")]
+        public async Task<ActionResult<TradeDto>> GetTradeAsync(int userId1, int userId2)
         {
-            var test = await _tradeService.GetTradeDto(id1, id2);
+            var test = await _tradeService.GetTradeDto(userId1, userId2);
 
             if (test == null)
             {
@@ -39,17 +39,24 @@ namespace VeggieSwappyServer.Controllers
             return Ok(test);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TradeHistoryDto>> GetTradeHistoryAsync(int id)
+        [HttpGet("{tradeId}")]
+        public async Task<ActionResult<TradeHistoryDto>> GetTradeHistoryAsync(int tradeId)
         {            
-            var test = await _tradeService.GetTradeHistory(id);
+            var test = await _tradeService.GetTradeHistory(tradeId);
             return Ok(test);
         }
 
-        [HttpGet("cancel/{id}")]
-        public async Task<ActionResult<bool>> ControllerCancelTradeAsync(int id)
+        [HttpGet("Cancel/{id}")]
+        public async Task<ActionResult<bool>> CancelTrade(int id)
         {
             bool succes = await _tradeService.CancelTrade(id);
+            return Ok(succes);
+        }
+
+        [HttpGet("Accept/{id}")]
+        public async Task<ActionResult<bool>> AcceptTrade(int id)
+        {
+            bool succes = await _tradeService.AcceptTrade(id);
             return Ok(succes);
         }
     }
