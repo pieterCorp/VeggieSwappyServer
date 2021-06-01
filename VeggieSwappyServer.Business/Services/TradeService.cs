@@ -47,6 +47,14 @@ namespace VeggieSwappyServer.Business.Services
             return _mapper.Map<TradeHistoryDto>(trade);
         }
 
+        public async Task<bool> CancelTrade(int tradeId)
+        {
+            Trade trade = await _tradeRepo.GetTradeByIdAsync(tradeId);
+            trade.TradeStatus = TradeStatus.CANCELED;
+            await _genericRepo.UpdateEntityAsync(trade);
+            return true;
+        }
+
         private async Task<TradeDto> CreateTradeDto(int trader1, int trader2)
         {
             User user1 = await _userRepo.GetUserByIdAsync(trader1);
@@ -141,6 +149,6 @@ namespace VeggieSwappyServer.Business.Services
             trade.CurrentTradeProposal = MakeNewTradeProposal(tradeDto);
 
             return trade;
-        }       
+        }
     }
 }
