@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System.Linq;
 using VeggieSwappyServer.Business.Dto;
+using VeggieSwappyServer.Business.MappedModels;
 using VeggieSwappyServer.Data.Entities;
 
 namespace VeggieSwappyServer.Business
@@ -60,6 +61,26 @@ namespace VeggieSwappyServer.Business
 
             CreateMap<CurrentTradeProposal, RejectedTradeProposal>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
+                .ReverseMap();
+
+            CreateMap<CurrentTradeProposal, TradeProposalModel>()
+                .ForMember(d => d.ProposingUserId, x => x.MapFrom(y => y.ProposingUserId))
+                .ForMember(d => d.ProposedTradeItems, x => x.MapFrom(y => y.ProposedTradeItems))
+                .ReverseMap();
+
+            CreateMap<RejectedTradeProposal, TradeProposalModel>()
+              .ForMember(d => d.ProposingUserId, x => x.MapFrom(y => y.ProposingUserId))
+              .ForMember(d => d.ProposedTradeItems, x => x.MapFrom(y => y.ProposedTradeItems))
+              .ReverseMap();
+
+            CreateMap<Trade, TradeHistoryDto>()                
+                .ForMember(d => d.User1_Id, x => x.MapFrom(y => y.User1Id))
+                .ForMember(d => d.User1_FirstName, x => x.MapFrom(y => y.Users[0].FirstName))
+                .ForMember(d => d.User1_LastName, x => x.MapFrom(y => y.Users[0].LastName))
+                .ForMember(d => d.User2_Id, x => x.MapFrom(y => y.User2Id))
+                .ForMember(d => d.User2_FirstName, x => x.MapFrom(y => y.Users[1].FirstName))
+                .ForMember(d => d.User2_LastName, x => x.MapFrom(y => y.Users[1].LastName))
+                .ForMember(d => d.TimesRejected, x => x.MapFrom(y => y.RejectedTradeProposals.Count))
                 .ReverseMap();
         }
     }
