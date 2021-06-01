@@ -22,12 +22,9 @@ namespace VeggieSwappyServer.Business.Services
         {
             Trade trade = await _tradeRepo.GetTradeAsync(trader1, trader2);
 
-            if (trade != null && trade.Users.Count == 2)
-            {
-                var test = _mapper.Map<TradeDto>(trade);
-                return test;
-            }
-
+            if (trade != null && trade.Users.Count == 2) 
+                return _mapper.Map<TradeDto>(trade);
+           
             return await CreateTradeDto(trader1, trader2);
         }
         public async Task<bool> SaveTradeDto(TradeDto tradeDto)
@@ -134,6 +131,12 @@ namespace VeggieSwappyServer.Business.Services
             trade.CurrentTradeProposal = MakeNewTradeProposal(tradeDto);
 
             return trade;
+        }
+
+        public async Task<TradeHistoryDto> GetTradeHistory(int id)
+        {
+            Trade trade = await _tradeRepo.GetTradeWithHistoryByIdAsync(id);
+            return _mapper.Map<TradeHistoryDto>(trade);            
         }
     }
 }

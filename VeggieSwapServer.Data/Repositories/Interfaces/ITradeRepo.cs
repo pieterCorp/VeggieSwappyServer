@@ -10,5 +10,6 @@ namespace VeggieSwappyServer.Data.Repositories
         Task<Trade> GetTradeByIdAsync(int id);
         Task<int> GetTradeIdAsync(int trader1, int trader2);
         Task<IEnumerable<Trade>> GetTradesAsync();
+        Task<Trade> GetTradeWithHistoryByIdAsync(int id);
     }
 }

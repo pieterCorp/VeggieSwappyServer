@@ -38,5 +38,13 @@ namespace VeggieSwappyServer.Controllers
 
             return Ok(test);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TradeHistoryDto>> GetTradeHistoryAsync(int id)
+        {
+            var test = await _tradeService.GetTradeHistory(id);
+
+            return Ok(test);
+        }
     }
 }

@@ -46,6 +46,23 @@ namespace VeggieSwappyServer.Data.Repositories
             return test;
         }
 
+        public async Task<Trade> GetTradeWithHistoryByIdAsync(int id)
+        {
+            var test =
+             await _context.Trades
+                .Where(x => x.Id == id)
+                .Include(x => x.Users)              
+                .Include(x => x.RejectedTradeProposals)
+                .ThenInclude(x => x.ProposedTradeItems)
+                .ThenInclude(x => x.Resource)
+                .Include(x => x.CurrentTradeProposal)
+                .ThenInclude(x => x.ProposedTradeItems)
+                .ThenInclude(x => x.Resource)
+                .FirstOrDefaultAsync();
+
+            return test;
+        }
+
         public async Task<int> GetTradeIdAsync(int trader1, int trader2)
         {
             Trade trade = await GetTradeAsync(trader1, trader2);
