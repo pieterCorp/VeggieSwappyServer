@@ -191,7 +191,10 @@ namespace VeggieSwappyServer.Business.Services
                             return false;
                         }
                     }
-                    return false;
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (item.UserId == trade.Users[1].Id)
                 {
@@ -211,7 +214,10 @@ namespace VeggieSwappyServer.Business.Services
                             return false;
                         }
                     }
-                    return false;
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
