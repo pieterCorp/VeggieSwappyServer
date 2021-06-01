@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using VeggieSwappyServer.Business.MappedModels;
+using VeggieSwappyServer.Data.Enums;
 
 namespace VeggieSwappyServer.Business.Dto
 {
     public class TradeHistoryDto
     {
         public int Id { get; set; }
-        public bool Completed { get; set; }
+        public string TradeStatus { get; set; }
         public int TimesRejected { get; set; }
         public int User1_Id { get; set; }
         public string User1_FirstName { get; set; }

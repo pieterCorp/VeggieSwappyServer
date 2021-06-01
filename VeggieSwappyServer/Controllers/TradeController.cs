@@ -10,7 +10,7 @@ namespace VeggieSwappyServer.Controllers
     //[Authorize]
     public class TradeController : ControllerBase
     {
-        private ITradeService _tradeService;
+        private readonly ITradeService _tradeService;
 
         public TradeController(ITradeService tradeService)
         {
@@ -41,10 +41,10 @@ namespace VeggieSwappyServer.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TradeHistoryDto>> GetTradeHistoryAsync(int id)
-        {
+        {            
             var test = await _tradeService.GetTradeHistory(id);
-
             return Ok(test);
+
         }
     }
 }

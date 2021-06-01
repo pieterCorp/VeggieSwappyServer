@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using VeggieSwappyServer.Data.Enums;
 
 namespace VeggieSwappyServer.Data.Entities
 {
@@ -16,7 +17,7 @@ namespace VeggieSwappyServer.Data.Entities
 
         public virtual CurrentTradeProposal CurrentTradeProposal { get; set; }
 
-        public bool Completed { get; set; }
+        public TradeStatus TradeStatus { get; set; }
 
     }
 }
