@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VeggieSwappyServer.Business.Dto;
 using VeggieSwappyServer.Data.Entities;
+using VeggieSwappyServer.Data.Enums;
 using VeggieSwappyServer.Data.Repositories;
 
 namespace VeggieSwappyServer.Business.Services
 {
     public class TradeService : GenericService<Trade, TradeDto>, ITradeService
     {
-        private ITradeRepo _tradeRepo;
-        private IUserRepo _userRepo;
+        private readonly ITradeRepo _tradeRepo;
+        private readonly IUserRepo _userRepo;
 
         public TradeService(IGenericRepo<Trade> genericRepo, ITradeRepo tradeRepo, IMapper mapper, IUserRepo userRepo)
             : base(genericRepo, mapper)
@@ -39,6 +40,11 @@ namespace VeggieSwappyServer.Business.Services
                 await UpdateExistingTrade(tradeDto);
             }
             return true;
+        }
+        public async Task<TradeHistoryDto> GetTradeHistory(int id)
+        {
+            Trade trade = await _tradeRepo.GetTradeWithHistoryByIdAsync(id);
+            return _mapper.Map<TradeHistoryDto>(trade);
         }
 
         private async Task<TradeDto> CreateTradeDto(int trader1, int trader2)
@@ -77,17 +83,19 @@ namespace VeggieSwappyServer.Business.Services
 
         private CurrentTradeProposal MakeNewTradeProposal(TradeDto tradeDto)
         {
-            CurrentTradeProposal newProposal = new CurrentTradeProposal();
-            newProposal.ProposedTradeItems = HardCloneTradeItems(tradeDto);
-            newProposal.ProposingUserId = tradeDto.ProposingUserId;
-            newProposal.TradeId = tradeDto.Id;
+            CurrentTradeProposal newProposal = new()
+            {
+                ProposedTradeItems = HardCloneTradeItems(tradeDto),
+                ProposingUserId = tradeDto.ProposingUserId,
+                TradeId = tradeDto.Id
+            };
 
             return newProposal;
         }
 
         private List<ProposedTradeItem> HardCloneTradeItems(TradeDto tradeDto)
         {
-            List<ProposedTradeItem> clonedTradeItems = new List<ProposedTradeItem>();
+            List<ProposedTradeItem> clonedTradeItems = new();
 
             foreach (var tradeItem in tradeDto.ProposedTradeItemsUser1)
             {
@@ -122,21 +130,17 @@ namespace VeggieSwappyServer.Business.Services
             {
                 User1Id = user1.Id,
                 User2Id = user2.Id,
-                Completed = false,
+                TradeStatus = TradeStatus.ACTIVE,
             };
-            List<User> users = new List<User>();
-            users.Add(user1);
-            users.Add(user2);
+            List<User> users = new()
+            {
+                user1,
+                user2
+            };
             trade.Users = users;
             trade.CurrentTradeProposal = MakeNewTradeProposal(tradeDto);
 
             return trade;
-        }
-
-        public async Task<TradeHistoryDto> GetTradeHistory(int id)
-        {
-            Trade trade = await _tradeRepo.GetTradeWithHistoryByIdAsync(id);
-            return _mapper.Map<TradeHistoryDto>(trade);            
-        }
+        }       
     }
 }

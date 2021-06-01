@@ -10,35 +10,23 @@ namespace VeggieSwappyServer.Business
     {
         public AutoMapperProfile()
         {
-            //CreateMap<TradeItem, TradeItemDto>()
-            //    .ForMember(d => d.ResourceId, x => x.MapFrom(y => y.Resource.Id))
-            //    .ForMember(d => d.ResourceName, x => x.MapFrom(y => y.Resource.Name))
-            //    .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl));
+            CreateMap<Resource, ResourceDto>().ReverseMap();
+            CreateMap<CurrentTradeProposal, TradeProposalModel>().ReverseMap();
+            CreateMap<RejectedTradeProposal, TradeProposalModel>().ReverseMap();
 
             CreateMap<ProposedTradeItem, TradeItemDto>()
                 .ForMember(d => d.ResourceId, x => x.MapFrom(y => y.Resource.Id))
                 .ForMember(d => d.ResourceName, x => x.MapFrom(y => y.Resource.Name))
-                .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))
-                .ForMember(d => d.Amount, x => x.MapFrom(y => y.Amount))
+                .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))               
                 .ReverseMap();
 
             CreateMap<UserTradeItem, TradeItemDto>()
                 .ForMember(d => d.ResourceId, x => x.MapFrom(y => y.Resource.Id))
                 .ForMember(d => d.ResourceName, x => x.MapFrom(y => y.Resource.Name))
-                .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))
-                .ForMember(d => d.Amount, x => x.MapFrom(y => y.Amount))
+                .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))               
                 .ReverseMap();
 
-            //CreateMap<User, UserDto>()
-            //    .ForMember(d => d.AddressID, x => x.MapFrom(y => y.Address.Id))
-            //    .ForMember(d => d.AddressPostalCode, x => x.MapFrom(y => y.Address.PostalCode))
-            //    .ForMember(d => d.AddressStreetName, x => x.MapFrom(y => y.Address.StreetName))
-            //    .ForMember(d => d.AddressStreetNumber, x => x.MapFrom(y => y.Address.StreetNumber))
-            //    .ForMember(d => d.WalletID, x => x.MapFrom(y => y.Wallet.Id))
-            //    .ReverseMap();
-
-            CreateMap<Trade, TradeDto>()
-                .ForMember(d => d.Id, x => x.MapFrom(y => y.Id))
+            CreateMap<Trade, TradeDto>()                
                 .ForMember(d => d.ProposingUserId, x => x.MapFrom(y => y.CurrentTradeProposal.ProposingUserId))
 
                 .ForMember(d => d.User1_Id, x => x.MapFrom(y => y.User1Id))
@@ -57,21 +45,9 @@ namespace VeggieSwappyServer.Business
                 .ReverseMap();
 
 
-            CreateMap<Resource, ResourceDto>().ReverseMap();
-
             CreateMap<CurrentTradeProposal, RejectedTradeProposal>()
                 .ForMember(d => d.Id, opt => opt.Ignore())
                 .ReverseMap();
-
-            CreateMap<CurrentTradeProposal, TradeProposalModel>()
-                .ForMember(d => d.ProposingUserId, x => x.MapFrom(y => y.ProposingUserId))
-                .ForMember(d => d.ProposedTradeItems, x => x.MapFrom(y => y.ProposedTradeItems))
-                .ReverseMap();
-
-            CreateMap<RejectedTradeProposal, TradeProposalModel>()
-              .ForMember(d => d.ProposingUserId, x => x.MapFrom(y => y.ProposingUserId))
-              .ForMember(d => d.ProposedTradeItems, x => x.MapFrom(y => y.ProposedTradeItems))
-              .ReverseMap();
 
             CreateMap<Trade, TradeHistoryDto>()                
                 .ForMember(d => d.User1_Id, x => x.MapFrom(y => y.User1Id))
@@ -81,7 +57,22 @@ namespace VeggieSwappyServer.Business
                 .ForMember(d => d.User2_FirstName, x => x.MapFrom(y => y.Users[1].FirstName))
                 .ForMember(d => d.User2_LastName, x => x.MapFrom(y => y.Users[1].LastName))
                 .ForMember(d => d.TimesRejected, x => x.MapFrom(y => y.RejectedTradeProposals.Count))
+                .ForMember(d => d.TradeStatus, x => x.MapFrom(y => y.TradeStatus.ToString()))
                 .ReverseMap();
+
+            //CreateMap<User, UserDto>()
+            //    .ForMember(d => d.AddressID, x => x.MapFrom(y => y.Address.Id))
+            //    .ForMember(d => d.AddressPostalCode, x => x.MapFrom(y => y.Address.PostalCode))
+            //    .ForMember(d => d.AddressStreetName, x => x.MapFrom(y => y.Address.StreetName))
+            //    .ForMember(d => d.AddressStreetNumber, x => x.MapFrom(y => y.Address.StreetNumber))
+            //    .ForMember(d => d.WalletID, x => x.MapFrom(y => y.Wallet.Id))
+            //    .ReverseMap();
+
+            //CreateMap<TradeItem, TradeItemDto>()
+            //    .ForMember(d => d.ResourceId, x => x.MapFrom(y => y.Resource.Id))
+            //    .ForMember(d => d.ResourceName, x => x.MapFrom(y => y.Resource.Name))
+            //    .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl));
+
         }
     }
 }
