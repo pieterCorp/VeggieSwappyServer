@@ -52,7 +52,7 @@ namespace VeggieSwappyServer.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUserAsync(UserDto model)
         {
-            return Ok(await _userService.UpdateEntityAsync(model));
+            return Ok(await _userService.UpdateUserAsync(model));
         }
     }
 }
