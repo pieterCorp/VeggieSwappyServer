@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace VeggieSwappyServer.Business.Services
 {
-    public interface IGenericService<Model>
+    public interface IGenericService<Entity, Model>
     {
         Task<bool> AddEntitiesAsync(IEnumerable<Model> models);
         Task<bool> AddEntityAsync(Model model);

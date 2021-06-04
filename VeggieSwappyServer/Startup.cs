@@ -57,14 +57,17 @@ namespace VeggieSwappyServer
 
             services.AddScoped<IGenericRepo<Trade>, GenericRepo<Trade>>();
             services.AddScoped<IGenericRepo<User>, GenericRepo<User>>();
+            services.AddScoped<IGenericRepo<UserTradeItem>, GenericRepo<UserTradeItem>>();
 
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<ITradeRepo, TradeRepo>();
+
             services.AddScoped<ITradeService, TradeService>();
-            
+            services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ITokenService, TokenService>();
         }
-
        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

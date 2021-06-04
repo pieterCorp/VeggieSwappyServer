@@ -9,7 +9,8 @@ namespace VeggieSwappyServer.Data
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            SeedUsers(modelBuilder);            
+            SeedUsers(modelBuilder);
+            SeedAddresses(modelBuilder);
             SeedResources(modelBuilder);
             SeedUserTradeItems(modelBuilder);
         }
@@ -32,9 +33,205 @@ namespace VeggieSwappyServer.Data
                     new User { Id = 10, FirstName = "Luc", LastName = "DeHaantje", IsAdmin = false, Email = "Luc@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "https://robohash.org/Luc" },
                     new User { Id = 11, FirstName = "Verhofstad", LastName = "Zeemlap", IsAdmin = false, Email = "VerhofstadDeZeemlap@europeesemailadres.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "https://robohash.org/Zeemlap" },
                     new User { Id = 12, FirstName = "Dries", LastName = "VanKorteNekke", IsAdmin = false, Email = "Driesdentweedenmaarnidezelfden@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "https://robohash.org/Dries2" },
-                    new User { Id = 13, FirstName = "Joyce", LastName = "Tomatenplukker", IsAdmin = false, Email = "Joyce@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "https://robohash.org/Tomatenplukker" }
+                    new User { Id = 13, FirstName = "Joyce", LastName = "Tomatenplukker", IsAdmin = false, Email = "Joyce@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "https://robohash.org/Tomatenplukker" },
+                    new User { Id = 14, FirstName = "Marieke", LastName = "Van Leren Broeke", IsAdmin = false, Email = "Marieke@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "T1" },
+                    new User { Id = 15, FirstName = "Anke", LastName = "Kleurenkenner", IsAdmin = false, Email = "Anke@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "27" },
+                    new User { Id = 16, FirstName = "Emma", LastName = "Schoonkind", IsAdmin = false, Email = "Emma@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "45" },
+                    new User { Id = 17, FirstName = "Sien", LastName = "Rommeltje", IsAdmin = false, Email = "Sien@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "57" },
+                    new User { Id = 18, FirstName = "Joke", LastName = "LidlAnnoying", IsAdmin = false, Email = "Joke@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "24" },
+                    new User { Id = 19, FirstName = "Karolien", LastName = "Vdabpolitie", IsAdmin = false, Email = "Karolien@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "78" },
+                    new User { Id = 20, FirstName = "Hoon", LastName = "Tomatenplukker", IsAdmin = false, Email = "Hoon@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "99" },
+                    new User { Id = 21, FirstName = "Michaël", LastName = "Wanderer", IsAdmin = false, Email = "Michaël@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "25" },
+                    new User { Id = 22, FirstName = "Brent", LastName = "Tomatentrucker", IsAdmin = false, Email = "Brent@mail.com", PasswordSalt = hmac.Key, PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("1234")), ImageUrl = "29" }
                     );
             });
+        }
+
+        private static void SeedAddresses(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Address>(x =>
+            {
+                x.HasData(
+                new Address
+                {
+                    Id = 1,
+                    StreetName = "Anti-Veggiestraat",
+                    StreetNumber = 89,
+                    PostalCode = 9000,
+                    UserId = 1
+                },
+                new Address
+                {
+                    Id = 2,
+                    StreetName = "Vrbaan",
+                    StreetNumber = 45,
+                    PostalCode = 3000,
+                    UserId = 2
+                },
+                new Address
+                {
+                    Id = 3,
+                    StreetName = "Balletjesstraat",
+                    StreetNumber = 74,
+                    PostalCode = 4000,
+                    UserId = 3
+                },
+                new Address
+                {
+                    Id = 4,
+                    StreetName = "Vleesbroodstraat",
+                    StreetNumber = 66,
+                    PostalCode = 1000,
+                    UserId = 4
+                },
+                new Address
+                {
+                    Id = 5,
+                    StreetName = "Boerenworststraat",
+                    StreetNumber = 85,
+                    PostalCode = 9000,
+                    UserId = 5
+                },
+                new Address
+                {
+                    Id = 6,
+                    StreetName = "Spekmeteierenstraat",
+                    StreetNumber = 43,
+                    PostalCode = 1000,
+                    UserId = 6
+                },
+                new Address
+                {
+                    Id = 7,
+                    StreetName = "Greenpeacestraat",
+                    StreetNumber = 1,
+                    PostalCode = 9050,
+                    UserId = 7
+                },
+                new Address
+                {
+                    Id = 8,
+                    StreetName = "Kotsvisplein",
+                    StreetNumber = 96,
+                    PostalCode = 1000,
+                    UserId = 8
+                },
+                new Address
+                {
+                    Id = 9,
+                    StreetName = "Greenlivesweg",
+                    StreetNumber = 420,
+                    PostalCode = 2000,
+                    UserId = 9
+                },
+                new Address
+                {
+                    Id = 10,
+                    StreetName = "Geenpolitiekstraat",
+                    StreetNumber = 200,
+                    PostalCode = 9070,
+                    UserId = 10
+                },
+                new Address
+                {
+                    Id = 11,
+                    StreetName = "Kalfslapjesstraat",
+                    StreetNumber = 32,
+                    PostalCode = 9500,
+                    UserId = 11
+                },
+                new Address
+                {
+                    Id = 12,
+                    StreetName = "Blacklivesmatterstraat",
+                    StreetNumber = 78,
+                    PostalCode = 1000,
+                    UserId = 12
+                },
+                new Address
+                {
+                    Id = 13,
+                    StreetName = "Worstenbroodjesstraat",
+                    StreetNumber = 4,
+                    PostalCode = 7000,
+                    UserId = 13
+                },
+                new Address
+                {
+                    Id = 14,
+                    StreetName = "Jurgenverstopstraat",
+                    StreetNumber = 24,
+                    PostalCode = 9000,
+                    UserId = 14
+                },
+                new Address
+                {
+                    Id = 15,
+                    StreetName = "Bloedworststraat",
+                    StreetNumber = 78,
+                    PostalCode = 1081,
+                    UserId = 15
+                },
+                new Address
+                {
+                    Id = 16,
+                    StreetName = "Runderlendedreef",
+                    StreetNumber = 36,
+                    PostalCode = 1180,
+                    UserId = 16
+                },
+                new Address
+                {
+                    Id = 17,
+                    StreetName = "Ribbetjesstraat",
+                    StreetNumber = 14,
+                    PostalCode = 1500,
+                    UserId = 17
+                },
+                new Address
+                {
+                    Id = 18,
+                    StreetName = "Bickyburgerstraat",
+                    StreetNumber = 15,
+                    PostalCode = 2070,
+                    UserId = 18
+                },
+                new Address
+                {
+                    Id = 19,
+                    StreetName = "Lookbroodjesstraat",
+                    StreetNumber = 11,
+                    PostalCode = 2323,
+                    UserId = 19
+                },
+                new Address
+                {
+                    Id = 20,
+                    StreetName = "Worstenbroodjesstraat",
+                    StreetNumber = 79,
+                    PostalCode = 2890,
+                    UserId = 20
+                },
+                new Address
+                {
+                    Id = 21,
+                    StreetName = "Balletjesstraat",
+                    StreetNumber = 100,
+                    PostalCode = 3020,
+                    UserId = 21
+                },
+                new Address
+                {
+                    Id = 22,
+                    StreetName = "Kalfsrib-eyelaan",
+                    StreetNumber = 107,
+                    PostalCode = 3110,
+                    UserId = 22
+                }
+
+                );
+            }
+            );
         }
 
         private static void SeedResources(ModelBuilder modelBuilder)
