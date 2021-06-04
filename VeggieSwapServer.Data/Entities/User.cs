@@ -25,6 +25,8 @@ namespace VeggieSwappyServer.Data.Entities
 
         public bool IsAdmin { get; set; }
 
+        public virtual Address Address { get; set; }
+
         public virtual ICollection<UserTradeItem> UserTradeItems { get; set; }
         public virtual ICollection<Trade> Trades { get; set; }
 
