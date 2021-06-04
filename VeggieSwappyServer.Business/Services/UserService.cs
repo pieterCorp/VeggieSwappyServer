@@ -36,7 +36,7 @@ namespace VeggieSwappyServer.Business.Services
                 StreetName = model.AddressStreetName,
                 StreetNumber = model.AddressStreetNumber
             };
-            await _genericRepo.UpdateEntityAsync(user);
+            await _userRepo.UpdateUserAsync(user);
             return true;
         }
         public async Task<IEnumerable<UserTradeItemDto>> GetAllUserTradeItemssAsync()
