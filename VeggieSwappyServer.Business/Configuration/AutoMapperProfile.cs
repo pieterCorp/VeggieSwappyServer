@@ -20,7 +20,7 @@ namespace VeggieSwappyServer.Business
                 .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))               
                 .ReverseMap();
 
-            CreateMap<UserTradeItem, TradeItemDto>()
+            CreateMap<UserTradeItem, TradeItemDto>()                
                 .ForMember(d => d.ResourceId, x => x.MapFrom(y => y.Resource.Id))
                 .ForMember(d => d.ResourceName, x => x.MapFrom(y => y.Resource.Name))
                 .ForMember(d => d.ResourceImageUrl, x => x.MapFrom(y => y.Resource.ImageUrl))               

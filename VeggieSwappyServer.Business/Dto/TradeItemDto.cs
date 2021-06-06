@@ -8,6 +8,9 @@
 
         public string ResourceImageUrl { get; set; }
 
+        public int AvailableAmount { get; set; }
+
         public int Amount { get; set; }
+        
     }
 }

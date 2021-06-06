@@ -11,5 +11,6 @@ namespace VeggieSwappyServer.Business.Services
         Task<IEnumerable<UserTradeItemDto>> GetAllUserTradeItemssAsync();
         Task<UserDto> GetUserAsync(int id);
         Task<bool> UpdateUserAsync(UserDto model);
+        Task<UserWithTradeItemsDto> GetUserWithTradeItemsAsync(int id);
     }
 }
