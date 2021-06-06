@@ -24,6 +24,11 @@ namespace VeggieSwappyServer.Controllers
            
             return test;
         }
+        [HttpGet("UserWithTradeItems/{id}")]
+        public async Task<UserWithTradeItemsDto> GetUserWithTradeItems(int id)
+        {
+            return await _userService.GetUserWithTradeItemsAsync(id);
+        }
 
         [HttpGet]
         public async Task<IEnumerable<object>> GetAllUsersAsync()

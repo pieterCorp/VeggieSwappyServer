@@ -25,7 +25,23 @@ namespace VeggieSwappyServer.Business.Services
         {
             return _mapper.Map<UserDto>(await _userRepo.GetUserByIdAsync(id));
         }
-
+        public async Task<UserWithTradeItemsDto> GetUserWithTradeItemsAsync(int id)
+        {
+            User user = await _userRepo.GetUserByIdAsync(id);
+            UserDto userDto = _mapper.Map<UserDto>(user);
+            List<TradeItemDto> userTradeItems = new();
+            foreach (var tradeItem in user.UserTradeItems)
+            {
+                TradeItemDto tradeItemDto = _mapper.Map<TradeItemDto>(tradeItem);
+                userTradeItems.Add(tradeItemDto);
+            }
+            UserWithTradeItemsDto userWithTradeItemsDto = new()
+            {
+                User = userDto,
+                TradeItems = userTradeItems
+            };
+            return userWithTradeItemsDto;
+        }
         public async Task<bool> UpdateUserAsync(UserDto model)
         {
             User user = _mapper.Map<User>(model);

@@ -26,11 +26,16 @@ namespace VeggieSwappyServer.Business.Services
             Trade trade = await _tradeRepo.GetTradeAsync(trader1, trader2);
 
             if (trade != null && trade.Users.Count == 2)
+            {
+                //UpdateUserTradeItems(trade);
+
                 return _mapper.Map<TradeDto>(trade);
+
+            }
 
             return await CreateTradeDto(trader1, trader2);
         }
-
+        
         public async Task<bool> SaveTradeDto(TradeDto tradeDto)
         {
             if (tradeDto.Id == 0)
